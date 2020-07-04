@@ -31,7 +31,6 @@ import org.eclipse.milo.opcua.stack.core.util.CertificateUtil;
 import org.eclipse.milo.opcua.stack.server.EndpointConfiguration;
 import org.eclipse.milo.opcua.stack.server.security.DefaultServerCertificateValidator;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +41,6 @@ public class SecureServer {
 
 	private final OpcUaServer server;
 	
-	@Autowired
 	public SecureServer(
 			@Value("${opc.secure-server.bind-address:localhost}") String bindAddress, 
 			@Value("${opc.secure-server.bind-port:4851}") Integer bindPort) throws Exception {

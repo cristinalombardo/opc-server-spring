@@ -13,4 +13,10 @@ public interface WeatherService {
 	String getCity();
 	
 	String getApiCall();
+	
+	void setCity(String city);
+	
+	String getLang();
+
+	void setLang(String lang);
 }

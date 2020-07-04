@@ -13,7 +13,7 @@ public class WeatherDataBean {
 	private Double humidity;
 	
 	@JsonProperty("feels_like")
-	private String feelsLike;
+	private Double feelsLike;
 	
 	@JsonProperty("temp_min")
 	private Double tempMin;
@@ -23,6 +23,10 @@ public class WeatherDataBean {
 
 	public Double getTemp() {
 		return temp;
+	}
+	
+	public Double getTempAsCentigrate() {
+		return this.temp == null ? -1000.0: this.temp - 273.15;
 	}
 
 	public void setTemp(Double temp) {
@@ -45,16 +49,24 @@ public class WeatherDataBean {
 		this.humidity = humidity;
 	}
 
-	public String getFeelsLike() {
+	public Double getFeelsLike() {
 		return feelsLike;
 	}
+	
+	public Double getFeelsLikeAsCentigrate() {
+		return this.feelsLike == null ? -1000.0: this.feelsLike - 273.15;
+	}
 
-	public void setFeelsLike(String feelsLike) {
+	public void setFeelsLike(Double feelsLike) {
 		this.feelsLike = feelsLike;
 	}
 
 	public Double getTempMin() {
 		return tempMin;
+	}
+	
+	public Double getTempMinAsCentigrate() {
+		return this.tempMin == null ? -1000.0: this.tempMin - 273.15;
 	}
 
 	public void setTempMin(Double tempMin) {
@@ -63,6 +75,10 @@ public class WeatherDataBean {
 
 	public Double getTempMax() {
 		return tempMax;
+	}
+	
+	public Double getTempMaxAsCentigrate() {
+		return this.tempMax == null ? -1000.0: this.tempMax - 273.15;
 	}
 
 	public void setTempMax(Double tempMax) {

@@ -1,0 +1,8 @@
+sequenceDiagram
+    loop Repeat each 10s
+        
+        WeatherService->>+OpenWeatherAPI: callHttp(api.openweathermap.org/data/2.5/weather, city, appid, lang)
+        OpenWeatherAPI-->>-WeatherService: currentWeatherJSON
+        WeatherService->>WeatherService: Store on local OBJ
+
+    end

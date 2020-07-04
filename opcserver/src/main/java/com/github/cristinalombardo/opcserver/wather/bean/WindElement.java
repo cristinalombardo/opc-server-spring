@@ -7,7 +7,7 @@ public class WindElement {
 
 	private Double speed;
 	
-	private Double deg;
+	private Integer deg;
 
 	public Double getSpeed() {
 		return speed;
@@ -17,11 +17,11 @@ public class WindElement {
 		this.speed = speed;
 	}
 
-	public Double getDeg() {
+	public Integer getDeg() {
 		return deg;
 	}
 
-	public void setDeg(Double deg) {
+	public void setDeg(Integer deg) {
 		this.deg = deg;
 	}
 

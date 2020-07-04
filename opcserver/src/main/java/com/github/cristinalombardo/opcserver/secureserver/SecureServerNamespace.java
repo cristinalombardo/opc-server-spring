@@ -120,13 +120,12 @@ public class SecureServerNamespace extends ManagedNamespace {
 
 			//Create a random value on range 0 - 100 on each update from client
 			rand100Node.getFilterChain().addLast(
-					new AttributeLoggingFilter(),
 					AttributeFilters.getValue(
 							ctx ->
 							new DataValue(new Variant(this.random.nextInt(100))) //Setup rand value between 0 - 100 on each read
 							)
+					, AttributeFilters.setValue( (attr, value) -> System.out.println(attr + " " + value))
 					);
-
 			//Add rand node to node manager
 			getNodeManager().addNode(rand100Node);
 			
