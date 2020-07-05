@@ -57,7 +57,8 @@ public class WeatherNamespace extends ManagedNamespace {
 	@Value("${weather.callinterval}")
 	private Integer refresh;
 
-
+	//Get the weatherService object Implementation from IoC Container
+	//The service implementation is connected through service Interface
 	@Autowired
 	private WeatherService weatherService;
 
@@ -260,7 +261,7 @@ public class WeatherNamespace extends ManagedNamespace {
 			String name = "city";
 			UaVariableNode cityChanger = new UaVariableNode.UaVariableNodeBuilder(getNodeContext())
 					.setNodeId(newNodeId(weatherFolderPath+ "/" + name))
-					.setAccessLevel(AccessLevel.toValue(AccessLevel.READ_WRITE))
+					.setAccessLevel(AccessLevel.toValue(AccessLevel.READ_WRITE)) //The var is accessible in read and write
 					.setBrowseName(newQualifiedName(name))
 					.setDisplayName(LocalizedText.english(name))
 					.setDataType(Identifiers.String)
@@ -269,10 +270,13 @@ public class WeatherNamespace extends ManagedNamespace {
 
 			cityChanger.setValue(new DataValue(new Variant(this.weatherService.getCity())));
 
+			//Define the access filter to allow write in detail define the user that can access in write
 			cityChanger.getFilterChain().addLast(new RestrictedAccessFilter(identity -> {
-				return AccessLevel.READ_WRITE;
+				return AccessLevel.READ_WRITE; //all user
 			}));
 
+			
+			//Define the behavior on write the variable
 			cityChanger.addAttributeObserver(new AttributeObserver() {
 				@Override
 				public void attributeChanged(UaNode node, AttributeId attributeId, Object value) {
@@ -353,10 +357,10 @@ public class WeatherNamespace extends ManagedNamespace {
 				return AccessLevel.READ_WRITE;
 			}));
 
+			//Manage attribute change
 			languageChanger.addAttributeObserver(new AttributeObserver() {
 				@Override
 				public void attributeChanged(UaNode node, AttributeId attributeId, Object value) {
-					System.out.println(attributeId + " " + value.toString());
 					if(value instanceof DataValue) {
 						DataValue data = (DataValue) value;
 						logger.info("Write Lang: "+ data.getValue().getValue());
