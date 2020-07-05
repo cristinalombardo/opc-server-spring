@@ -1,10 +1,10 @@
-package com.github.cristinalombardo.opcserver.wather.bean;
+package com.github.cristinalombardo.opcserver.wather.bean.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class WeatherDataBean {
+public class MainElement {
 
 	private Double temp;
 	
@@ -87,8 +87,9 @@ public class WeatherDataBean {
 
 	@Override
 	public String toString() {
-		return "WeatherDataBean [temp=" + temp + ", pressure=" + pressure + ", humidity=" + humidity + ", feelsLike="
+		return "MainElement [temp=" + temp + ", pressure=" + pressure + ", humidity=" + humidity + ", feelsLike="
 				+ feelsLike + ", tempMin=" + tempMin + ", tempMax=" + tempMax + "]";
 	}
+
 
 }

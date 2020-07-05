@@ -5,7 +5,8 @@
 - [Introduzione](#introduzione)
 - [Perché Spring Boot](#perché-spring-boot)
 - [Descrizione del progetto](#descrizione-del-progetto)
-    - [Secure Server @Component](#secure-server-component)
+    - [WeatherService](#weatherservice)
+- [Struttura delle cartelle](#struttura-delle-cartelle)
     - [Strumenti utilizzati](#strumenti-utilizzati)
 - [Funzionamento](#funzionamento)
 - [Annex 1: GitHub](#annex-1-github)
@@ -54,37 +55,32 @@ Da un punto di vista logico il progetto si compone da un insieme di oggetti che 
 > :white_check_mark: Spring Istanzia automaticamente tutto gli oggetti utilizzando il pattern **SINGLETON** evitando così la proliferazione incontrollata degli oggetti
 
 I principali aggetti che verranno messi nell'IoC container sono:
-```mermaid
-classDiagram
-    SecureServer --* SecureServerNamespace : @Autowired
-	SecureServerNamespace --* WeatherService : @Autowired
-	WeatherService <-- WeatherServiceImp
-	class SecureServerNamespace {
-		- WeatherService weatherService
-		- SecureServer server
-	}
-	class WeatherService {
-		<<interface>> 
-		+ getCurrentWeatherBean()
-	}
-	class WeatherServiceImp {
-		- RestTemplate restTemplate
-		- CurrentWeatherBean currentWeatherBean
-		+ getCurrentWeatherBean()
-	}
-	class SecureServer {
-		- SubscriptionModel subscriptionModel
-	}
-```
+![Class Diagram](img/class-diagram.svg)
 
-### Secure Server @Component
+Il sistema quindi si compone dai seguenti elementi:
+
+![Project Element](img/opcserver_spring_schema.png)
+
+L'immagine sopra mostra la struttura del sistema. Come si vede dall'immagine i componenti atti a gestire il sistema sono
+- WeatherService
+- SecureServer
+- SecureServerNamespace
+- WeatherNamespace
+
+Nel seguito dettaglieremo tutti questi componenti.
+
+### WeatherService
+
+
+
+
+## Struttura delle cartelle
 
 Il progetto si struttura in diverse cartelle in accordo alla seguente struttura: 
 ```
 spring-camel-milo-server
 	├── dist
 	├── doc
-	├── opccamelserver
 	└── opcserver
 ```
 

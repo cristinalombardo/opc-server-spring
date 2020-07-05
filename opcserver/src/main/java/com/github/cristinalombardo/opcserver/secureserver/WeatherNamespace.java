@@ -61,6 +61,7 @@ public class WeatherNamespace extends ManagedNamespace {
 	@Autowired
 	private WeatherService weatherService;
 
+	//Inject on the Constructor the instance of SecureServer present into the IoC Container
 	@Autowired
 	public WeatherNamespace(SecureServer secureServer) {
 		super(secureServer.getServer(), "urn:com:github:cristinalombardo:secure-server:weather");
@@ -68,7 +69,7 @@ public class WeatherNamespace extends ManagedNamespace {
 
 	}
 
-	//Startup this namespace
+	//Startup this namespace after Construction
 	@PostConstruct
 	@Override
 	protected void onStartup() {

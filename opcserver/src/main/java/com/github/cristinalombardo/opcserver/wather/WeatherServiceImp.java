@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.github.cristinalombardo.opcserver.wather.bean.CurrentWeatherBean;
+import com.github.cristinalombardo.opcserver.wather.bean.WeatherBean;
 
 @Service
 public class WeatherServiceImp implements WeatherService{
@@ -16,7 +16,10 @@ public class WeatherServiceImp implements WeatherService{
 	private Log logger = LogFactory.getLog(getClass());
 
 	//Contains the URL to call
-	private String apiUrl;
+	private final String apiUrl;
+	
+	//Contains the URL with the Query string
+	private String apiCompleteUrl;
 	
 	//Contains the city parameter
 	private String city;
@@ -31,9 +34,11 @@ public class WeatherServiceImp implements WeatherService{
 	private RestTemplate restTemplate;
 
 	//Store the last weather downloaded
-	private CurrentWeatherBean currentWeatherBean;
+	private WeatherBean currentWeatherBean;
 
+	//Inject parameter on Constructor from Application Properties with @Value annotation
 	public WeatherServiceImp(	
+			@Value("${weather.apiurl}") String apiurl, //Api key allowing the access to the weather service
 			@Value("${weather.apikey}") String weatherApikey, //Api key allowing the access to the weather service
 			@Value("${weather.city}") String city, //Represent the city target for the weather
 			@Value("${weather.lang}") String lang //Represent the lang to call the weather
@@ -41,26 +46,27 @@ public class WeatherServiceImp implements WeatherService{
 		super();
 
 		this.weatherApikey = weatherApikey;
+		this.apiUrl = apiurl;
 		this.lang = lang;
 		this.city = city;
 		
-		this.apiUrl = this.createUrl();
+		this.createOrRefreshCompleteUrl();
 		//Initialize Rest Template
 		this.restTemplate = new RestTemplate();
 	}
 
 	@Override
-	public CurrentWeatherBean getCurrentWeather() {
+	public WeatherBean getCurrentWeather() {
 		return this.currentWeatherBean;
 	}
 
 
 	@Scheduled(fixedRateString = "${weather.callinterval}")
 	public void refreshCurrentWeatherBean() {
-		//Get the data from URL,  mapping it on class CurrentWeatherBean, store on local attribue currentWeatherBean
-		this.currentWeatherBean = this.restTemplate.getForObject(this.apiUrl, CurrentWeatherBean.class);
+		//Get the data from URL,  mapping the response on class CurrentWeatherBean, store on local attribute currentWeatherBean
+		this.currentWeatherBean = this.restTemplate.getForObject(this.apiCompleteUrl, WeatherBean.class);
 
-		logger.info(this.apiUrl  + "\nResponse: \nCurrent weather refreshed -> " + this.currentWeatherBean);
+		logger.info("\nCall: " + this.apiCompleteUrl  + "\nResponse -> " + this.currentWeatherBean);
 	}
 
 	@Override
@@ -71,7 +77,7 @@ public class WeatherServiceImp implements WeatherService{
 	@Override
 	public void setCity(String city) {
 		this.city = city;
-		this.apiUrl = this.createUrl();
+		this.createOrRefreshCompleteUrl();
 		this.refreshCurrentWeatherBean();
 	}
 	
@@ -83,22 +89,22 @@ public class WeatherServiceImp implements WeatherService{
 	@Override
 	public void setLang(String lang) {
 		this.lang = lang;
-		this.apiUrl = this.createUrl();
+		this.createOrRefreshCompleteUrl();
 		this.refreshCurrentWeatherBean();
 	}
 
 	@Override
 	public String getApiCall() {
-		return this.apiUrl;
+		return this.apiCompleteUrl;
 	}
 
-	private String createUrl() {
+	private void createOrRefreshCompleteUrl() {
 		//Define the remote weather url to call
 		UriComponentsBuilder builder = UriComponentsBuilder
-				.fromHttpUrl("http://api.openweathermap.org/data/2.5/weather")
+				.fromHttpUrl(this.apiUrl)
 				.queryParam("q", city)
 				.queryParam("appid", weatherApikey)
 				.queryParam("lang", lang);
-		return builder.toUriString();
+		this.apiCompleteUrl = builder.toUriString();
 	}
 }

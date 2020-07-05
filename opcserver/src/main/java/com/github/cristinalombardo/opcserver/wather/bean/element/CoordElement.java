@@ -1,14 +1,14 @@
-package com.github.cristinalombardo.opcserver.wather.bean;
+package com.github.cristinalombardo.opcserver.wather.bean.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CoordWeatherBean {
+public class CoordElement {
 
 	private Double lon;
 	private Double lat;
 	
-	public CoordWeatherBean() {
+	public CoordElement() {
 		super();
 	}
 
@@ -30,7 +30,7 @@ public class CoordWeatherBean {
 
 	@Override
 	public String toString() {
-		return "CoordWeatherBean [lon=" + lon + ", lat=" + lat + "]";
+		return "CoordElement [lon=" + lon + ", lat=" + lat + "]";
 	}
-	
+
 }

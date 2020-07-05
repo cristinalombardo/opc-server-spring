@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.cristinalombardo.opcserver.wather.bean.element.CloudsElement;
+import com.github.cristinalombardo.opcserver.wather.bean.element.CoordElement;
+import com.github.cristinalombardo.opcserver.wather.bean.element.MainElement;
+import com.github.cristinalombardo.opcserver.wather.bean.element.SysElement;
+import com.github.cristinalombardo.opcserver.wather.bean.element.WeatherElement;
+import com.github.cristinalombardo.opcserver.wather.bean.element.WindElement;
 
 /**
  * Contains the result of calling Weather API
@@ -11,23 +17,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CurrentWeatherBean implements Serializable{
+public class WeatherBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private CoordWeatherBean coord;
+	private CoordElement coord;
 	
-	private List<WeatherElementBean> weather;
+	private List<WeatherElement> weather;
 	
 	private String base;
 	
-	private WeatherDataBean main;
+	private MainElement main;
 	
 	private Integer visibility;
 	
 	private WindElement wind;
 	
-	private CloudElement clouds;
+	private CloudsElement clouds;
 	
 	private Long dt;
 	
@@ -41,19 +47,19 @@ public class CurrentWeatherBean implements Serializable{
 	
 	private Integer code;
 
-	public CoordWeatherBean getCoord() {
+	public CoordElement getCoord() {
 		return coord;
 	}
 
-	public void setCoord(CoordWeatherBean coord) {
+	public void setCoord(CoordElement coord) {
 		this.coord = coord;
 	}
 
-	public List<WeatherElementBean> getWeather() {
+	public List<WeatherElement> getWeather() {
 		return weather;
 	}
 
-	public void setWeather(List<WeatherElementBean> weather) {
+	public void setWeather(List<WeatherElement> weather) {
 		this.weather = weather;
 	}
 
@@ -65,11 +71,11 @@ public class CurrentWeatherBean implements Serializable{
 		this.base = base;
 	}
 
-	public WeatherDataBean getMain() {
+	public MainElement getMain() {
 		return main;
 	}
 
-	public void setMain(WeatherDataBean main) {
+	public void setMain(MainElement main) {
 		this.main = main;
 	}
 
@@ -89,11 +95,11 @@ public class CurrentWeatherBean implements Serializable{
 		this.wind = wind;
 	}
 
-	public CloudElement getClouds() {
+	public CloudsElement getClouds() {
 		return clouds;
 	}
 
-	public void setClouds(CloudElement clouds) {
+	public void setClouds(CloudsElement clouds) {
 		this.clouds = clouds;
 	}
 
@@ -147,9 +153,10 @@ public class CurrentWeatherBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "CurrentWeatherBean [coord=" + coord + ", weather=" + weather + ", base=" + base + ", main=" + main
+		return "WeatherBean [coord=" + coord + ", weather=" + weather + ", base=" + base + ", main=" + main
 				+ ", visibility=" + visibility + ", wind=" + wind + ", clouds=" + clouds + ", dt=" + dt + ", sys=" + sys
 				+ ", timezone=" + timezone + ", id=" + id + ", name=" + name + ", code=" + code + "]";
 	}
+
 	
 }

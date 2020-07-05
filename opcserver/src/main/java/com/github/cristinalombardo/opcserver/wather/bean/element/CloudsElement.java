@@ -1,9 +1,9 @@
-package com.github.cristinalombardo.opcserver.wather.bean;
+package com.github.cristinalombardo.opcserver.wather.bean.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CloudElement {
+public class CloudsElement {
 
 	private Double all;
 
@@ -17,8 +17,9 @@ public class CloudElement {
 
 	@Override
 	public String toString() {
-		return "CloudElement [all=" + all + "]";
+		return "CloudsElement [all=" + all + "]";
 	}
+
 	
 	
 	

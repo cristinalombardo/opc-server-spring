@@ -152,9 +152,6 @@ public class SecureServer {
 	private Set<EndpointConfiguration> createEndpointConfigurations(X509Certificate certificate, String bindAddress, Integer bindPort) {
 		Set<EndpointConfiguration> endpointConfigurations = new LinkedHashSet<>();
 
-
-
-
 		//Create a builder of Endpoint configuration
 		EndpointConfiguration.Builder builder = EndpointConfiguration.newBuilder()
 				.setBindAddress(bindAddress)

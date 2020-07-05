@@ -1,4 +1,4 @@
-package com.github.cristinalombardo.opcserver.wather.bean;
+package com.github.cristinalombardo.opcserver.wather.bean.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

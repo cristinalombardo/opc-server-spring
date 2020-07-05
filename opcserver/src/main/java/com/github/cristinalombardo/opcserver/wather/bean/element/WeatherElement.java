@@ -1,9 +1,9 @@
-package com.github.cristinalombardo.opcserver.wather.bean;
+package com.github.cristinalombardo.opcserver.wather.bean.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class WeatherElementBean {
+public class WeatherElement {
 
 	private Integer id;
 	
@@ -47,7 +47,7 @@ public class WeatherElementBean {
 
 	@Override
 	public String toString() {
-		return "WeatherElementBean [id=" + id + ", main=" + main + ", description=" + description + ", icon=" + icon
+		return "WeatherElement [id=" + id + ", main=" + main + ", description=" + description + ", icon=" + icon
 				+ "]";
 	}
 	
