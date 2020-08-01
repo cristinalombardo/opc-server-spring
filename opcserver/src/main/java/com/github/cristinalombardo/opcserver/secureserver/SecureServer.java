@@ -46,7 +46,7 @@ public class SecureServer {
 			@Value("${opc.secure-server.bind-port:4851}") Integer bindPort) throws Exception {
 		//Create directory for store certificate
 		File securityTempDir = new File(
-				System.getProperty("user.home") +"/Documents/cristina/", 
+				System.getProperty("user.home") +"/Documents/certificate/", 
 				"security");
 
 		if (

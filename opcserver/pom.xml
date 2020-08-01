@@ -11,10 +11,15 @@
 	</parent>
 	<groupId>com.github.cristinalombardo</groupId>
 	<artifactId>opcserver</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Spring Boot OPC Server</name>
 	<description>OPC Server using Milo into Spring Boot</description>
-
+	<developers>
+		<developer>
+			<name>Cristina Lombardo</name>
+			<email>lombardo.cristina84@gmail.com</email>
+		</developer>
+	</developers>
 	<properties>
 		<java.version>9</java.version>
 		<milo.version>0.4.1</milo.version>
