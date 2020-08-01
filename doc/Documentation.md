@@ -39,7 +39,7 @@ Al fine di rispettare i requisiti di cui sopra si è scelto di implementare un s
 - Implementazione del meccanismo di autenticazione
 - Implementazione di un servizio che prenda i dati da [OpenWeater](https://openweathermap.org/)
 
-> Il comportamento del presente progetto è descritto nel seguente video [https://youtu.be/jkRsrzQQzuI](https://youtu.be/jkRsrzQQzuI)
+> Il comportamento del presente progetto è descritto nel seguente video [https://youtu.be/SCR9I5awd2A](https://youtu.be/SCR9I5awd2A)
 
 > :information_source: [OpenWeater](https://openweathermap.org/) è un servizio on line che permette previa registrazione di utilizzare API atte a fornire informazioni meteo il servizio è gratuito se si rispettano alcuni limiti, per ulteriori informazioni -> [OpenWeater Price](https://openweathermap.org/price)
 
