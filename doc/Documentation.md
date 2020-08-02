@@ -41,7 +41,7 @@ Al fine di rispettare i requisiti di cui sopra si è scelto di implementare un s
 
 > Il comportamento del presente progetto è descritto nel seguente video [https://youtu.be/SCR9I5awd2A](https://youtu.be/SCR9I5awd2A)
 
-> :information_source: [OpenWeater](https://openweathermap.org/) è un servizio on line che permette previa registrazione di utilizzare API atte a fornire informazioni meteo il servizio è gratuito se si rispettano alcuni limiti, per ulteriori informazioni -> [OpenWeater Price](https://openweathermap.org/price)
+> :information_source: [OpenWeater](https://openweathermap.org/) è un servizio on line che permette previa registrazione di utilizzare API atte a fornire informazioni meteo, il servizio è gratuito se si rispettano alcuni limiti, per ulteriori informazioni -> [OpenWeater Price](https://openweathermap.org/price)
 
 L'idea di questo progetto è quella di implementare il server OpcUA con Milo SDK ed utilizzando [Spring Boot](https://spring.io/projects/spring-boot), un framework di sviluppo molto diffuso anche in ambito java enterprise.
 
@@ -58,16 +58,15 @@ Nel corso di questo documento verranno mostrati quali siano i vantaggi nell'usar
 
 Questa documentazione non ha come obiettivo la descrizione dettagliata del framework, per maggiori informazioni consultare la documentazione ufficiale.
 
-<div style="page-break-after: always;"></div>
-
 # Descrizione del progetto
 Da un punto di vista logico il progetto si compone da un insieme di oggetti che vengono creati all'interno dell'IoC container di Spring. Gli oggetti che vengono istanziati sono gestiti *automaticamente* da Spring.
-> :white_check_mark: Spring Istanzia automaticamente tutto gli oggetti utilizzando di defaul il pattern **SINGLETON** evitando così la proliferazione incontrollata degli oggetti (è possible cambiare il pattern generazionale da Singleton a Prototype qual ora fosse necessario)
+> :white_check_mark: Spring istanzia automaticamente tutti gli oggetti utilizzando di defaul il pattern **SINGLETON** evitando così la proliferazione incontrollata degli oggetti (è possible cambiare il pattern generazionale da Singleton a Prototype qual ora fosse necessario)
 
-I principali aggetti che verranno messi nell'IoC container sono:
+I principali oggetti che verranno messi nell'IoC container sono:
 
 <img src="img/class-diagram.svg" width="50%" style="margin-left: 25%">
 
+<div style="page-break-after: always;"></div>
 
 Il sistema quindi si compone dai seguenti elementi:
 
@@ -81,9 +80,11 @@ L'immagine sopra mostra la struttura del sistema. In dettaglio vengono descritti
 
 Nel seguito dettaglieremo tutti questi componenti.
 
+<div style="page-break-after: always;"></div>
+
 ## WeatherService
 
-L'oggetto WeatherService si compone di due elementi, un'interfaccia che definisce le azione che vengono fatte dal WeatherService è un'implementazione dell'interfaccia che si chiamo `WeatherServiceImp`.
+L'oggetto WeatherService si compone di due elementi, un'interfaccia che definisce le azioni che vengono fatte dal WeatherService e un'implementazione dell'interfaccia che si chiama `WeatherServiceImp`.
 
 L'implementazione è annotata con l'annotazione `@Service` che indica a Spring che tale oggetto va istanziato nell'IoC Container.
 
@@ -117,7 +118,9 @@ public class WeatherServiceImp implements WeatherService{
 ```
 La classe di cui sopra, annotata come `@Service`, prevede un costruttore con 4 parametri tali parametri vengono presi dal file di properties utilizzando l'annotazione `@Value`.
 
-> :white_check_mark: All'interno del costruttore è mostrata l'inizializzazione dell'attributo `restTemplate`plate di tipo `RestTemplate`. Il RestTemplate è un classe Spring che permette di effettuare in maniera semplice le chiamate Http su API esterne. 
+> :white_check_mark: All'interno del costruttore è mostrata l'inizializzazione dell'attributo `restTemplate` di tipo `RestTemplate`. Il RestTemplate è un classe Spring che permette di effettuare in maniera semplice le chiamate Http su API esterne. 
+
+<div style="page-break-after: always;"></div>
 
 Le azioni che deve implementare il WaterService sono sintetizzate nel seguente sequence diagram:
 
@@ -128,7 +131,7 @@ In particolare il servizio utilizza l'API [http://api.openweathermap.org/data/2.
 - `appid` : parametro nel quale specificare un apikey ottenibile registrandosi al servizio OpenWeather
 - `lang` : parametro opzionale che permette di ottenere la frase relativa le previsioni in tutte le lingue specificando il codice della nazione (e.g. zh_CN per cinese, de per tedesco e così via)
 
-All'interno del servizio la url con i parametri viene creata dal seguente metodo
+All'interno del servizio la url con i parametri viene creata nel seguente metodo
 
 ```Java
 private void createOrRefreshCompleteUrl() {
@@ -291,7 +294,9 @@ public class SecureServer {
 ```
 Con le annotazioni di cui sopra (`@Component` ed `@Value`) indichiamo a Spring di instaziare un componente di tipo SecureServer iniettandogli i valori di porta ed address presi dal file di configurazione `application.properties`.
 
-> :white_check_mark: L'annotazione `@Value` permette di agganciare all'interno di attributi, variabili e parametri valori presi da file esterni. La sintassi prevede l'utilizzo di costrutti del tipo `${nome_proprieta:valore_di_default}` il valore dopo i due punti è un valore opzionale specificabile per impostare un valore di default qual ora non si abbia l'obbligo di specificare la proprietà sul file di properties.
+> :white_check_mark: L'annotazione `@Value` permette di agganciare all'interno di attributi, variabili e parametri, valori presi da file esterni. La sintassi prevede l'utilizzo di costrutti del tipo `${nome_proprieta:valore_di_default}` il valore dopo i due punti è un valore opzionale specificabile per impostare un valore di default qual ora non si abbia l'obbligo di specificare la proprietà sul file di properties.
+
+<div style="page-break-after: always;"></div>
 
 ### Gestione dei certificati
 Per la gestione dei certificati è necessario definire un oggetto particolare che si prenda il compito di memorizzare e gestire i certificati sul file system del server.
@@ -303,7 +308,7 @@ La classe `KeyStoreLoader` ha il compito di creare la seguente struttura su file
 ![Certificate Dirs](img/cert-folders.png)
 
 Nella cartella `rejected` verranno inseriti i certificati client non accettati dal Server OPC. Potranno comunicare con il server tutti quei client con certificato presente nella cartella `trusted/certs`.
-La cartella `issuers` dovrebbe permettere l'utilizzo di Certification Authority per validare i certificati, questa sezione non è stata esplorate nel contesto del presente progetto.
+La cartella `issuers` dovrebbe permettere l'utilizzo di Certification Authority per validare i certificati, questa sezione non è stata esplorata nel contesto del presente progetto.
 
 La gestione dei certificati è basata sul seguente codice:
 
@@ -378,7 +383,7 @@ La gestione dei certificati è basata sul seguente codice:
         return this;
     }
 ```
-Da notare che in questa fase viene creato un certificato X.509 con chiave auto-firmata che verrà salvato nel file `cristina-keystore.pfx`. Questo file dovrebbe essere memorizzato in una directory protetta in quanto contiene anche la chiave privata di del server per la gestione delle firme.
+Da notare che in questa fase viene creato un certificato X.509 con chiave auto-firmata che verrà salvato nel file `cristina-keystore.pfx`. Questo file dovrebbe essere memorizzato in una directory protetta in quanto contiene anche la chiave privata del server per la gestione delle firme.
 
 ### Gestione degli endpoint
 
@@ -447,16 +452,20 @@ Il metodo è il seguente:
 	}
  ```
 
-Il metodo `createEndpointConfiguration` richiede l'indirizzo e la porta per il binding ed il certificato X.509 creato allo step precedente. Nel esempio di cui sopra vengono implementati tre meccanismi all'interno dello stesso endpoint. Uno in chiaro (da evitare in applicazione di produzione) uno firmato ed uno firmato e cifrato. Inoltre viene data la possibilità di avere accesso anonimo o autenticato tramite username o tramite certificato X.509 del client. 
+Il metodo `createEndpointConfiguration` richiede l'indirizzo e la porta per il binding ed il certificato X.509 creato allo step precedente. Nell'esempio di cui sopra vengono implementati tre meccanismi all'interno dello stesso endpoint. Uno in chiaro (da evitare in applicazione di produzione) uno firmato ed uno firmato e cifrato. Inoltre viene data la possibilità di avere accesso anonimo o autenticato tramite username o tramite certificato X.509 del client. 
+
+
+<div style="page-break-after: always;"></div>
 
 ## Dati esposti dal server
 
-Il server implementato espone due cartella aggiuntive oltre a quelle standard previste dal protocollo OPC. Le due cartella sono definite in due namespace separati.
+Il server implementato espone due cartelle aggiuntive oltre a quelle standard previste dal protocollo OPC. Le due cartelle sono definite in due namespace separati.
 - SecureServer Namespace
 - Weather namespace
 
 I dati esposti dal server sono i seguenti
-![Folder](img/floders.png)
+
+<img src="img/folders.png" width="50%" style="margin-left: 25%">
 
 Dove:
 - Rand100: Variabile sottoscrivibile che produce Numeri casuali tra 0-100 ogni secondo
@@ -479,7 +488,7 @@ Dove:
 
 ## Weather namespace
 
-In questa sezione vengono sottolineati alcuni aspetti riguardanti l'esposizione delle informazioni sulle previsioni. Per un quadro più completo acceder al sorgente nella classe `com.github.cristinalombardo.opcserver.secureserver.WeatherNamespace`.
+In questa sezione vengono sottolineati alcuni aspetti riguardanti l'esposizione delle informazioni sulle previsioni. Per un quadro più completo accedere al sorgente nella classe `com.github.cristinalombardo.opcserver.secureserver.WeatherNamespace`.
 
 ### Variabile language
 
@@ -527,7 +536,7 @@ La variabile language è definita attraverso il seguente codice:
 }
 ```
 
-La parte interessante del codice riguarda l'oggetto di tipo `AttributeObserver`in quanto l'SDK mette a disposizione questa interfaccia per poter catturare l'occorrenza alle chiamate di WRITE su protocollo OPC.
+La parte interessante del codice riguarda l'oggetto di tipo `AttributeObserver` in quanto l'SDK mette a disposizione questa interfaccia per poter catturare l'occorrenza alle chiamate di WRITE su protocollo OPC.
 
 ### Current temperature
 
