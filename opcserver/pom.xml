@@ -22,7 +22,7 @@
 	</developers>
 	<properties>
 		<java.version>9</java.version>
-		<milo.version>0.4.1</milo.version>
+		<milo.version>0.6.8</milo.version>
 	</properties>
 
 	<dependencies>
